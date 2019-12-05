@@ -3,9 +3,9 @@
 #include <omp.h>
 #include <sys/time.h>
 
-#define QTDE_LINHAS 10000
-#define QTDE_COLUNAS 80
-#define TAM_VETOR 80
+#define QTDE_LINHAS 200
+#define QTDE_COLUNAS 200
+#define TAM_VETOR 200
 
 // Ax = b
 int Matriz[QTDE_LINHAS][QTDE_COLUNAS]; // nao precisa ser matriz quadrada
@@ -40,7 +40,7 @@ int matvecSequencial(){
 	struct timeval tv1, tv2;
 	double t1, t2;
 
-	printf("\nExecutando MatvecSequencial:\n");
+	printf("Executando MatvecSequencial:\n");
 
 	//Marcação do tempo Inicial.
 	gettimeofday(&tv1, NULL);
@@ -88,9 +88,7 @@ int matvecHost() {
 	{
 		Thread_ID = omp_get_thread_num();
 		for (i = 0; i < QTDE_LINHAS; i++) {
-			for (j = 0; j < QTDE_COLUNAS;j++) {
-				Matriz_Temporaria[i][Thread_ID] = Matriz[i][Thread_ID] * Vetor_x[Thread_ID];
-			}
+			Matriz_Temporaria[i][Thread_ID] = Matriz[i][Thread_ID] * Vetor_x[Thread_ID];
 		}
 
 		//Gera o vetor de resultado B.
@@ -103,16 +101,15 @@ int matvecHost() {
 	t2 = (double)(tv2.tv_sec) + (double)(tv2.tv_usec)/1000000.00;
 
 	printf("O tempo de execucao OpenMP foi: %lf\n", (t2 - t1));
+	
 	return 0;
 }
 
 int matvecDevice() {
-
 }
 
 
 int main() {
-
 	Gera_Matriz_Vetor();
 	matvecSequencial();
 	matvecHost();
