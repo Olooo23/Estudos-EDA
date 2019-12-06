@@ -3,9 +3,9 @@
 #include <omp.h>
 #include <sys/time.h>
 
-#define QTDE_LINHAS 10000
-#define QTDE_COLUNAS 10000
-#define TAM_VETOR 10000
+#define QTDE_LINHAS 5
+#define QTDE_COLUNAS 5
+#define TAM_VETOR 5
 
 // Ax = b
 int Matriz[QTDE_LINHAS][QTDE_COLUNAS]; // Que necessariamente não é uma Matriz Quadrada.
@@ -112,18 +112,8 @@ int matvecDevice() {
 
 
 int main() {
-	Gera_Matriz_Vetor();
-	matvecSequencial();
-	for (int i = 0; i < QTDE_LINHAS;i++) {
-		printf("%d ", Vetor_b[i]);
-	}
-	printf("\n");
-	matvecHost();
-	printf("\n");
-	for (int i = 0; i < QTDE_LINHAS;i++) {
-		printf("%d ", Vetor_b[i]);
-	}
-	printf("\n");
+		matvecHost();
+		for (int i = 0; i < QTDE_LINHAS;i++) {
+			printf("%d ",Vetor_b[i]);
+		}
 }
-
-
